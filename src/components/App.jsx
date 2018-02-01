@@ -9,9 +9,9 @@ class App extends React.Component {
     };
   }
 
-  onTitleClick(clickedVideo) {
+  onTitleClick(index) {
     this.setState({
-      currentVideo: clickedVideo,
+      currentVideo: this.state.videos[index],
     });
   }
 
