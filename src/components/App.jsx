@@ -1,13 +1,20 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    document.title = this.props.title;
     
     this.state = {
-      videos: [],
-      default: exampleVideoData[0],
+      videos: exampleVideoData,
+      currentVideo: exampleVideoData[0],
     };
   }
-  
+
+  onTitleClick(clickedVideo) {
+    this.setState({
+      currentVideo: clickedVideo,
+    });
+  }
+
   render() {
     return (
       <div>
@@ -18,10 +25,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer default={this.state.default}/>
+            <VideoPlayer default={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList videos={exampleVideoData}/>
+            <VideoList click={this.onTitleClick.bind(this)} videos={this.state.videos}/>
           </div>
         </div>
       </div>

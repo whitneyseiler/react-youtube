@@ -14,6 +14,11 @@ body {
   width: 50px;
 }
 
+.topnav {
+  display: flex;
+  flex-direction: row;
+}
+
 .search-bar {
   border-radius: 1px;
   background: #fff;
@@ -21,7 +26,7 @@ body {
 
 .search-bar .form-control {
   border-radius: 2px;
-  width: 80%
+  width: 80%;
 }
 .search-bar .btn {
   border-radius: 2px;
