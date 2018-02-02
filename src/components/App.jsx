@@ -1,17 +1,35 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    document.title = this.props.title;
-    
+
     this.state = {
-      videos: exampleVideoData,
-      currentVideo: exampleVideoData[0],
+      videos: [],
+      currentVideo: null,
     };
   }
 
-  onTitleClick(index) {
+  componentDidMount() {
+    this.getVideos('react tutorials');
+  }
+
+  getVideos(query) {
+    var options = {
+      key: YOUTUBE_API_KEY,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) =>
+      this.setState({
+        videos: videos,
+        currentVideo: videos[0]
+      })
+    );
+    
+  }
+
+  onTitleClick(video) {
     this.setState({
-      currentVideo: this.state.videos[index],
+      currentVideo: video,
     });
   }
 
@@ -20,15 +38,15 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search /></div>
+            <div><Search search={this.getVideos.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer default={this.state.currentVideo}/>
+            <VideoPlayer current={this.state.currentVideo}/>
           </div>
           <div className="col-md-5">
-            <VideoList click={this.onTitleClick.bind(this)} videos={this.state.videos}/>
+            <VideoList onTitleClick={this.onTitleClick.bind(this)} videos={this.state.videos}/>
           </div>
         </div>
       </div>

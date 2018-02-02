@@ -1,22 +1,28 @@
-var VideoPlayer = (props) => {
+var VideoPlayer = ({current}) => {
 
   return (
-    <div className="video-player">
-      <div className="embed-responsive embed-responsive-16by9">
-        <iframe className="embed-responsive-item" src={"https://www.youtube.com/embed/" + props.default.id.videoId +  "?autoplay=1"} allowFullScreen></iframe>
+    !current ? <div className="video-player">Please wait...</div> :
+      <div className="video-player">
+        <div className="embed-responsive embed-responsive-16by9">
+          <iframe 
+            className="embed-responsive-item" 
+            src={'https://www.youtube.com/embed/' + current.id.videoId + '?autoplay=1'} 
+            allowFullScreen>
+          </iframe>
+        </div>
+        <div className="video-player-details">
+          <h3>{current.snippet.title}</h3>
+          <div>{current.snippet.description}</div>
+        </div>
       </div>
-      <div className="video-player-details">
-        <h3>{props.default.snippet.title}</h3>
-        <div>{props.default.snippet.description}</div>
-      </div>
-    </div>
   );
 };
+
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
 VideoPlayer.propTypes = {
-  video: React.PropTypes.object.isRequired
+  current: React.PropTypes.object.isRequired
 };
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
